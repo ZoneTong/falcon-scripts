@@ -12,6 +12,10 @@ dirs用于监控明确的目录
 
 parent_dirs用于要批量监控的目录时，填写这些目录的父目录即可
 
+| 指标名 | 注释 |
+|--------|------|
+|du.bytes.used|目录大小，单位byte|
+
 ## proc.sh
 
 该脚本主要用于监控指定进程所用的cpu/内存/io
@@ -21,6 +25,13 @@ parent_dirs用于要批量监控的目录时，填写这些目录的父目录即
 ports用于以端口号寻找进程监控
 
 cmds用于以进程名寻找进程监控
+
+| 指标名 | 注释 |
+|-------|------|
+|proc.cpu|进程所占cpu，百分比|
+|proc.mem|进程所占内存，单位byte|
+|proc.io.in|进程io输入，单位byte|
+|proc.io.out|进程io输出，单位byte|
 
 ## cmd.sh
 
