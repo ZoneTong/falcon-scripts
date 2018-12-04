@@ -1,6 +1,6 @@
 # falcon-scripts
 
-小米开源监控系统open-falcon监控采集脚本
+小米开源监控系统[open-falcon](https://github.com/open-falcon/falcon-plus)监控采集脚本
 
 ## du.sh
 
