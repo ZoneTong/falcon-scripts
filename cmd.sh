@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# cd $falcon/custom && bash cmd.sh stop && svn update && $falcon/custom && cd $falcon/custom && bash cmd.sh start
+# cd $falcon/custom && bash cmd.sh stop && svn update && cd $falcon/custom && cd $falcon/custom && bash cmd.sh start
 
 # 日志保存路径
 LOG_DIR=/bgi/logs/open-falcon
@@ -17,7 +17,7 @@ function start(){
 
     for sh in ${arr[@]};do
         echo start $sh
-        nohup bash $sh $LOG_DIR &
+        nohup bash $sh $LOG_DIR >${LOG_DIR}/$sh.out 2>&1 &
         sleep 1
     done
 }

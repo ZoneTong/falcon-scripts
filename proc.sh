@@ -22,6 +22,9 @@ function send(){
     ioin=`echo "$ios"|grep read_bytes|awk '{print $2}'`                                 #获取io输入
     ioout=`echo "$ios"|grep -v cancelled_write_bytes|grep write_bytes|awk '{print $2}'` #获取io输出
     mem=`cat /proc/$pid/status|grep -e VmRSS| awk '{print $2}'`                         #获取内存
+    if [ "$mem" == "" ];then
+        mem=0
+    fi
     mem=$[ $mem * 1024 ]
     metrics="[{\"endpoint\":\"$hostname\",\"metric\":\"proc.cpu\",\"value\":$cpu,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}","{\"endpoint\":\"$hostname\",\"metric\":\"proc.mem\",\"value\":$mem,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}","{\"endpoint\":\"$hostname\",\"metric\":\"proc.io.in\",\"value\":$ioin,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}","{\"endpoint\":\"$hostname\",\"metric\":\"proc.io.out\",\"value\":$ioout,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}]"
     
