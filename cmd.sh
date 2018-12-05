@@ -2,10 +2,12 @@
 
 # cd $falcon/custom && bash cmd.sh stop && svn checkout svn://192.168.31.103:6500/open-falcon/plugins $falcon/custom && cd $falcon/custom && bash cmd.sh start
 
+# 日志保存路径
 LOG_DIR=/bgi/logs/open-falcon
 mkdir -p $LOG_DIR
 
-scripts=(du.sh top.sh proc.sh)
+# 采集脚本列表
+scripts=(du.sh proc.sh)
 
 function start(){
     arr=$@

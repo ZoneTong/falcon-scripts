@@ -1,4 +1,8 @@
 #!/bin/bash
+
+logdir=$1
+: ${logdir:=.}
+
 # port=$1  #获取进程port
 ports=(22 80 8080)
 cmds=(client_bc redis java dockerd zookeeper kafka orderer peer nginx)
@@ -6,6 +10,7 @@ cmds=(client_bc redis java dockerd zookeeper kafka orderer peer nginx)
 
 hostname=`hostname`
 step=60
+olddate=`date +%Y%m%d`
 
 function send(){
     tags=$1  # port=$port   cmdline=$cmd
@@ -20,12 +25,20 @@ function send(){
     mem=$[ $mem * 1024 ]
     metrics="[{\"endpoint\":\"$hostname\",\"metric\":\"proc.cpu\",\"value\":$cpu,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}","{\"endpoint\":\"$hostname\",\"metric\":\"proc.mem\",\"value\":$mem,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}","{\"endpoint\":\"$hostname\",\"metric\":\"proc.io.in\",\"value\":$ioin,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}","{\"endpoint\":\"$hostname\",\"metric\":\"proc.io.out\",\"value\":$ioout,\"step\":$step,\"counterType\":\"GAUGE\",\"timestamp\":$ts,\"tags\":\"${tags}\"}]"
     
-    echo $metrics
+    
+    newdate=`date +%Y%m%d`
+    if [ $newdate != $olddate ];then
+        mv ${logdir}/proc.log ${logdir}/proc${olddate}.log
+        olddate=$newdate
+    fi
+    echo $metrics >> ${logdir}/proc.log
+
     curl -X POST -d $metrics  http://192.168.29.244:1988/v1/push
     echo
 }
 
 while true; do
+
     for p in ${ports[@]}; do
         pid=`netstat -anp | grep ":$port " | grep LISTEN| awk '{print $7}' | awk -F"/" '{ print $1 }'|uniq`
         if [ "$pid" != "" ]; then

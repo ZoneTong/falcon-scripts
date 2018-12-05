@@ -6,7 +6,7 @@ logdir=$1
 # 被监控的目录
 # dirs="/bgi/redis_data /bgi/docker_image_container"
 
-# 被监控的各子目录的父目录。 若之间有嵌套关系，父目录须放在后面
+# 批量监控时，要监控的各目录的父目录。 若父目录之间有嵌套关系，上一级目录须放在后面
 parent_dirs="/bgi/blockchain_data /bgi/kblockchain_data /bgi/redis_data /bgi/logs /bgi"
 
 hostname=`hostname`
