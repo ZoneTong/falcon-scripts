@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# cd $falcon/custom && bash cmd.sh stop && svn update && cd $falcon/custom && cd $falcon/custom && bash cmd.sh start
+# export scripts=$PWD
+# cd $scripts && bash cmd.sh stop && svn update && cd $scripts && cd $scripts && bash cmd.sh start
 
 # 日志保存路径
 LOG_DIR=/bgi/logs/open-falcon
