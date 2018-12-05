@@ -42,6 +42,7 @@ cmds用于以进程名寻找进程监控
 ```bash
     bash cmd.sh start  #一键启动
     bash cmd.sh stop   #一键停止
+    bash cmd.sh status #一键查询
 ```
 
 请记得替换脚本中push接口的IP端口

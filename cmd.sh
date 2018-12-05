@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# cd $falcon/custom && bash cmd.sh stop && svn checkout svn://192.168.31.103:6500/open-falcon/plugins $falcon/custom && cd $falcon/custom && bash cmd.sh start
+# cd $falcon/custom && bash cmd.sh stop && svn update && $falcon/custom && cd $falcon/custom && bash cmd.sh start
 
 # 日志保存路径
 LOG_DIR=/bgi/logs/open-falcon
@@ -33,6 +33,19 @@ function stop(){
         pids=$(ps -aux|grep -v grep|grep -v cmd.sh|grep "$sh"|awk '{print $2}'|tr -s '\n' ' ')
         echo stop $sh $pids
         kill -9 $pids
+    done
+}
+
+function status(){
+    arr=$@
+    if [ "$arr" == "" ];then
+        arr=${scripts[@]}
+    fi
+
+    # echo ${arr[@]}
+    for sh in ${arr[@]};do
+        pids=$(ps -aux|grep -v grep|grep -v cmd.sh|grep "$sh"|awk '{print $2}'|tr -s '\n' ' ')
+        echo status $sh $pids
     done
 }
 
