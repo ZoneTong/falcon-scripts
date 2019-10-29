@@ -43,7 +43,7 @@ function send(){
 while true; do
 
     for p in ${ports[@]}; do
-        pid=`netstat -anp | grep ":$port " | grep LISTEN| awk '{print $7}' | awk -F"/" '{ print $1 }'|uniq`
+        pid=`netstat -anp | grep ":$p " | grep LISTEN| awk '{print $7}' | awk -F"/" '{ print $1 }'|uniq`
         if [ "$pid" != "" ]; then
             echo port=$p $pid
             send port=$p $pid
